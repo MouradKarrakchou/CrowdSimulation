@@ -1,3 +1,5 @@
+package controller;
+
 public class Grid {
     int [][] tab;
     public Grid(int height,int width){
