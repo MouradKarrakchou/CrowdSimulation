@@ -1,8 +1,21 @@
 package controller;
 
 public class Grid {
-    int [][] tab;
+    private final int [][] tab;
+    private int height;
+    private int width;
+
     public Grid(int height,int width){
-        tab=new int[height][width];
+        this.height = height;
+        this.width = width;
+        this.tab = new int[height][width];
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }
