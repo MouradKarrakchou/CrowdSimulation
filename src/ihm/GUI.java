@@ -1,6 +1,8 @@
 package ihm;
 
 import controller.Grid;
+import controller.Person;
+import controller.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +23,15 @@ public class GUI {
         frame.setContentPane(panel);
 
         frame.setVisible(true);
+    }
+
+    public void updatePersonPosition(Person person, Position previousPosition, Position nextPosition) {
+        myGridPanel[previousPosition.getY()][previousPosition.getX()].setBackground(Color.WHITE);
+        myGridPanel[nextPosition.getY()][nextPosition.getX()].setBackground(person.getColor());
+    }
+
+    public void createPersonPosition(Person person, Position position) {
+        myGridPanel[position.getY()][position.getX()].setBackground(person.getColor());
     }
 
     JPanel setupMainPanel(Grid grid) {
@@ -45,6 +56,9 @@ public class GUI {
             for (int j = 0; j < grid.getWidth(); j++) {
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                Person currentPerson = grid.getTab()[i][j];
+                if (currentPerson != null)
+                    panel.setBackground(currentPerson.getColor());
                 gridPanel[i][j] = panel;
             }
         }

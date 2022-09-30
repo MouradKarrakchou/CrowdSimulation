@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Person{
     final Person [][] tab;
@@ -12,8 +13,10 @@ public class Person{
         this.position=position;
         this.goal=goal;
         this.tab=grid.tab;
-        this.color=null;
         this.grid=grid;
+        this.tab=tab;
+        Random random = new Random();
+        this.color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
     }
 
     /**
@@ -52,5 +55,9 @@ public class Person{
             return true;
         }
         else return false;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

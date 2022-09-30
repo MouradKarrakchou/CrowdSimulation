@@ -23,4 +23,8 @@ public class Grid {
     public int getWidth() {
         return width;
     }
+
+    public Person[][] getTab() {
+        return tab;
+    }
 }
