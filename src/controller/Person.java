@@ -14,7 +14,6 @@ public class Person{
         this.goal=goal;
         this.tab=grid.tab;
         this.grid=grid;
-        this.tab=tab;
         Random random = new Random();
         this.color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
     }
@@ -26,18 +25,19 @@ public class Person{
     public boolean makeChoice() {
         if (!makeMooveLine()) if(!makeMoveColon()) {
             tab[position.y][position.x]=null;
+            grid.deletePerson(position);
             return false;
         }
         return true;
     }
     public boolean makeMooveLine() {
         if (position.x< goal.x){
-            grid.mooveInGrid(position,new Position(position.x+1, position.y),this);
+            grid.moveInGrid(position,new Position(position.x+1, position.y),this);
             position.x++;
             return true;
         }
         else if (position.x> goal.x){
-            grid.mooveInGrid(position,new Position(position.x-1, position.y),this);
+            grid.moveInGrid(position,new Position(position.x-1, position.y),this);
             position.x--;
             return true;
         }
@@ -45,12 +45,12 @@ public class Person{
     }
     public boolean makeMoveColon() {
         if (position.y< goal.y){
-            grid.mooveInGrid(position,new Position(position.x, position.y+1),this);
+            grid.moveInGrid(position,new Position(position.x, position.y+1),this);
             position.y++;
             return true;
         }
         else if (position.y> goal.y){
-            grid.mooveInGrid(position,new Position(position.x, position.y-1),this);
+            grid.moveInGrid(position,new Position(position.x, position.y-1),this);
             position.y--;
             return true;
         }
