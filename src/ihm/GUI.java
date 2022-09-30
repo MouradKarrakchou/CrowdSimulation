@@ -34,6 +34,10 @@ public class GUI {
         myGridPanel[position.getY()][position.getX()].setBackground(person.getColor());
     }
 
+    public void createPersonPosition(Position position) {
+        myGridPanel[position.getY()][position.getX()].setBackground(Color.white);
+    }
+
     JPanel setupMainPanel(Grid grid) {
         // Setup the grid inside a gridLayout;
         // Each case of the grid is a JPanel of the matrix
