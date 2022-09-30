@@ -10,6 +10,11 @@ public class Grid {
         this.width = width;
         this.tab = new Person[height][width];
     }
+    public void mooveInGrid(Position start,Position arrival,Person person){
+        tab[start.y][start.x]=null;
+        tab[arrival.y][arrival.x+1]=person;
+
+    }
 
     public int getHeight() {
         return height;
