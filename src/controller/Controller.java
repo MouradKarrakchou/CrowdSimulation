@@ -21,7 +21,7 @@ public class Controller {
     public void startRound() throws InterruptedException {
         while (allPerson.size()>0) {
             allPerson.removeIf(person -> !person.makeChoice());
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         }
     }
 }

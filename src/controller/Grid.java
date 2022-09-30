@@ -37,6 +37,6 @@ public class Grid {
     }
 
     public void deletePerson(Position position) {
-        
+        gui.deletePersonByPosition(position);
     }
 }
