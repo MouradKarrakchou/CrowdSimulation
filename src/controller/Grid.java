@@ -16,7 +16,7 @@ public class Grid {
     }
     public void moveInGrid(Position start, Position arrival, Person person){
         tab[start.y][start.x]=null;
-        tab[arrival.y][arrival.x+1]=person;
+        tab[arrival.y][arrival.x]=person;
         gui.updatePersonPosition(person,start,arrival);
     }
 
@@ -37,6 +37,20 @@ public class Grid {
     }
 
     public void deletePerson(Position position) {
+        tab[position.y][position.x]=null;
         gui.deletePersonByPosition(position);
+    }
+    public void finishGame(Position position) {
+        tab[position.y][position.x]=null;
+        gui.finishGame(position);
+    }
+
+    public void putPerson(Person person) {
+        Person neighboor=tab[person.position.y][person.position.x];
+        if (neighboor!=null)
+            neighboor.destroy();
+        else
+            tab[person.position.y][person.position.x]=person;
+            gui.putPerson(person);
     }
 }
