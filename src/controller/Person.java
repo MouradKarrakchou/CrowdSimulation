@@ -41,7 +41,7 @@ public class Person{
      * @return true if he has made a choice, return false if he reached his goal
      */
     public boolean makeChoice() throws InterruptedException {
-        Thread.sleep(100);
+        Thread.sleep(1);
         comptReset++;
         if (comptReset<4) {
             return true;
@@ -81,7 +81,7 @@ public class Person{
         grid.deletePerson(position);
         position=new Position(startPosition.x,startPosition.y);
         comptReset=0;
-        System.out.println("DESTROYED");
+        System.out.println("DESTROYED " + id);
     }
     public boolean clearTheWay(Person neighboor){
         if (neighboor==null)
@@ -124,5 +124,14 @@ public class Person{
 
     public Position getGoal() {
         return goal;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "startPosition=" + startPosition +
+                ", goal=" + goal +
+                ", id=" + id +
+                '}';
     }
 }
