@@ -23,7 +23,7 @@ public class CSVManager {
         String row;
         int id = 0;
         while ((row = csvReader.readLine()) != null) {
-            getPersonFromLine(row, grid, id);
+            personList.add(getPersonFromLine(row, grid, id));
             id++;
         }
         csvReader.close();
