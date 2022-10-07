@@ -1,8 +1,11 @@
 package controller;
 
 import ihm.GUI;
+import input.CSVManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     Grid grid;
@@ -12,20 +15,9 @@ public class Controller {
     public static final int WIDTH =100;
     public static final int NUMBER_OF_PERSON =1000;
 
-
-    public Controller(){
-        grid=new Grid(HEIGHT, WIDTH);
-        this.allPerson=new ArrayList<>();
-        allPerson.add(new Person(new Position(0,0),new Position(5,0),grid,1));
-        allPerson.add(new Person(new Position(4,0),new Position(0,5),grid,2));
-        allPerson.add(new Person(new Position(6,0),new Position(6,6),grid,3));
-        allPerson.add(new Person(new Position(5,6),new Position(5,3),grid,4));
-        allPerson.add(new Person(new Position(7,9),new Position(2,5),grid,5));
-        allPerson.add(new Person(new Position(6,4),new Position(6,3),grid,6));
-        allPerson.add(new Person(new Position(7,2),new Position(1,0),grid,7));
-        allPerson.add(new Person(new Position(9,9),new Position(0, 4),grid,8));
-        allPerson.add(new Person(new Position(6,1),new Position(6,7),grid,9));
-
+    public Controller(int height, int width) throws IOException {
+        grid=new Grid(height,width);
+        this.allPerson = new CSVManager().getPersonList(grid);
         gui=new GUI(grid);
         grid.setGui(gui);
         for (Person person:allPerson){
