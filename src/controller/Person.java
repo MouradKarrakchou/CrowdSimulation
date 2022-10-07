@@ -75,7 +75,7 @@ public class Person{
     public boolean clearTheWay(Person neighboor){
         if (neighboor==null)
             return true;
-        else if (neighboor.id>this.id)
+        else if (neighboor.id<this.id)
         {
             neighboor.destroy();
             return true;

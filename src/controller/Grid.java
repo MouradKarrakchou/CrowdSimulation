@@ -48,7 +48,7 @@ public class Grid {
     public void putPerson(Person person) {
         Person neighboor=tab[person.position.y][person.position.x];
         if (neighboor!=null)
-        {if (neighboor.id>person.id)
+        {if (neighboor.id<person.id)
             {neighboor.destroy();
                 tab[person.position.y][person.position.x]=person;
                 gui.putPerson(person);}
