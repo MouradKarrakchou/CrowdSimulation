@@ -6,6 +6,8 @@ import controller.Position;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class GUI {
@@ -61,8 +63,9 @@ public class GUI {
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 Person currentPerson = grid.getTab()[i][j];
-                if (currentPerson != null)
+                if (currentPerson != null) {
                     panel.setBackground(currentPerson.getColor());
+                }
                 gridPanel[i][j] = panel;
             }
         }
@@ -89,9 +92,6 @@ public class GUI {
         frame.setLocationRelativeTo(null);
 
         return frame;
-    }
-
-    public static void main(String[] args) {
     }
 
 }

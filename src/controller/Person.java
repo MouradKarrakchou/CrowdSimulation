@@ -60,4 +60,12 @@ public class Person{
     public Color getColor() {
         return color;
     }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Position getGoal() {
+        return goal;
+    }
 }
