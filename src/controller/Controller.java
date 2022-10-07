@@ -11,9 +11,9 @@ public class Controller {
     Grid grid;
     List<Person> allPerson;
     GUI gui;
-    public static final int HEIGHT =100;
-    public static final int WIDTH =100;
-    public static final int NUMBER_OF_PERSON =1000;
+    public static final int HEIGHT =5;
+    public static final int WIDTH =5;
+    public static final int NUMBER_OF_PERSON =5;
 
     public Controller() throws IOException {
         grid=new Grid(HEIGHT,WIDTH);

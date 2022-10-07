@@ -41,7 +41,6 @@ public class Person{
      */
     public boolean makeChoice() throws InterruptedException {
 
-        //Thread.sleep(100);
         comptReset++;
         if (comptReset<4) {
             return true;
