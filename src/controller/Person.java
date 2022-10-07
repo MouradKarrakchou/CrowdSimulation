@@ -10,7 +10,6 @@ public class Person{
     Position goal;
     Color color;
     Grid grid;
-    //if comptReset<2 the player don't play
     int comptReset=4;
     int id;
 
@@ -41,7 +40,8 @@ public class Person{
      * @return true if he has made a choice, return false if he reached his goal
      */
     public boolean makeChoice() throws InterruptedException {
-        Thread.sleep(1);
+
+        //Thread.sleep(100);
         comptReset++;
         if (comptReset<4) {
             return true;
@@ -49,11 +49,15 @@ public class Person{
         else if (comptReset==4){
             grid.putPerson(this);
         }
-        if (!makeMooveLine()) if(!makeMoveColon()) {
+
+
+        if (comptReset!=0 && !makeMooveLine()) if(!makeMoveColon()) {
             grid.finishGame(position);
             return false;
         }
         return true;
+
+
     }
     public boolean makeMooveLine() {
         Person neighboor;
@@ -92,8 +96,8 @@ public class Person{
             return true;
         }
         else
-            this.destroy();
-            return false;
+        {this.destroy();
+            return false;}
     }
     public boolean makeMoveColon() {
         Person neighboor;
