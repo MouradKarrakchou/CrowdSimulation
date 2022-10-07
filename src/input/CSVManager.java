@@ -1,5 +1,6 @@
 package input;
 
+import controller.Controller;
 import controller.Grid;
 import controller.Person;
 import controller.Position;
@@ -38,10 +39,10 @@ public class CSVManager {
         return new Person(startPosition, goalPosition, grid, id, color);
     }
 
-    public void createPersonsCSV(int numberOfPersons, List<Position> startPositions, List<Position> goalPositions, List<Color> colorList) throws IOException {
+    public void createPersonsCSV( List<Position> startPositions, List<Position> goalPositions, List<Color> colorList) throws IOException {
         FileWriter csvWriter = new FileWriter(csvPath);
 
-        for (int i = 0; i < numberOfPersons; i++) {
+        for (int i = 0; i < Controller.NUMBER_OF_PERSON; i++) {
             csvWriter.append(getLineFromPersonInfo(startPositions.get(i), goalPositions.get(i), colorList.get(i)));
         }
         csvWriter.close();

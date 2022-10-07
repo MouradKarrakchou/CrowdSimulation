@@ -8,9 +8,13 @@ public class Controller {
     Grid grid;
     ArrayList<Person> allPerson;
     GUI gui;
+    public static final int HEIGHT =100;
+    public static final int WIDTH =100;
+    public static final int NUMBER_OF_PERSON =1000;
 
-    public Controller(int height, int width){
-        grid=new Grid(height,width);
+
+    public Controller(){
+        grid=new Grid(HEIGHT, WIDTH);
         this.allPerson=new ArrayList<>();
         allPerson.add(new Person(new Position(0,0),new Position(5,0),grid,1));
         allPerson.add(new Person(new Position(4,0),new Position(0,5),grid,2));
