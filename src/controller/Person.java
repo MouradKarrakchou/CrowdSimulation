@@ -25,6 +25,17 @@ public class Person{
         this.color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
     }
 
+    public Person(Position position,Position goal,Grid grid,int id, Color color){
+        this.id=id;
+        this.startPosition=position;
+        this.position=new Position(position.x,position.y);
+        this.goal=goal;
+        this.tab=grid.tab;
+        this.grid=grid;
+        Random random = new Random();
+        this.color = color;
+    }
+
     /**
      *
      * @return true if he has made a choice, return false if he reached his goal
