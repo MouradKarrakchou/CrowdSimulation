@@ -5,10 +5,11 @@ import input.CSVManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     Grid grid;
-    ArrayList<Person> allPerson;
+    List<Person> allPerson;
     GUI gui;
 
     public Controller(int height, int width) throws IOException {
