@@ -23,21 +23,27 @@ public class GUI {
         JFrame frame = setupFrame();
         JPanel panel = setupMainPanel(grid);
         frame.setContentPane(panel);
-
+        for (JPanel[] jpanels:myGridPanel){
+            for (JPanel jpanel:jpanels)
+                jpanel.setBackground(Color.gray);
+        }
         frame.setVisible(true);
     }
 
     public void updatePersonPosition(Person person, Position previousPosition, Position nextPosition) {
-        myGridPanel[previousPosition.getY()][previousPosition.getX()].setBackground(Color.WHITE);
+        myGridPanel[previousPosition.getY()][previousPosition.getX()].setBackground(Color.gray);
         myGridPanel[nextPosition.getY()][nextPosition.getX()].setBackground(person.getColor());
     }
-
-    public void createPersonPosition(Person person, Position position) {
-        myGridPanel[position.getY()][position.getX()].setBackground(person.getColor());
+    public void putPerson(Person person) {
+        myGridPanel[person.getPosition().getY()][person.getPosition().getX()].setBackground(person.getColor());
     }
 
     public void deletePersonByPosition(Position position) {
-        myGridPanel[position.getY()][position.getX()].setBackground(Color.white);
+        myGridPanel[position.getY()][position.getX()].setBackground(Color.gray);
+    }
+    public void finishGame(Position position) {
+        myGridPanel[position.getY()][position.getX()].setBackground(Color.gray);
+        myGridPanel[position.getY()][position.getX()].setBorder(BorderFactory.createLineBorder(Color.red));
     }
 
     JPanel setupMainPanel(Grid grid) {
