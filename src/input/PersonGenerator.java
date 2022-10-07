@@ -29,11 +29,11 @@ public class PersonGenerator {
                 case 0:
                     arrival.add(new Position(0,r.nextInt(height)));
                 case 1:
-                    arrival.add(new Position(width,r.nextInt(height)));
+                    arrival.add(new Position(width-1,r.nextInt(height)));
                 case 2:
                     arrival.add(new Position(r.nextInt(width),0));
                 case 3:
-                    arrival.add(new Position(r.nextInt(width),width));
+                    arrival.add(new Position(r.nextInt(width),height-1));
             }
             colors.add(new Color(r.nextFloat(), r.nextFloat(), r.nextFloat()));
         }

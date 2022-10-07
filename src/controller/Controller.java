@@ -9,14 +9,14 @@ import java.util.List;
 
 public class Controller {
     Grid grid;
-    ArrayList<Person> allPerson;
+    List<Person> allPerson;
     GUI gui;
     public static final int HEIGHT =100;
     public static final int WIDTH =100;
     public static final int NUMBER_OF_PERSON =1000;
 
-    public Controller(int height, int width) throws IOException {
-        grid=new Grid(height,width);
+    public Controller() throws IOException {
+        grid=new Grid(HEIGHT,WIDTH);
         this.allPerson = new CSVManager().getPersonList(grid);
         gui=new GUI(grid);
         grid.setGui(gui);
