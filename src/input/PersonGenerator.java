@@ -10,11 +10,13 @@ import java.util.Random;
 public class PersonGenerator {
     int height, width,numberOfPerson;
     Random r=new Random();
+    
     public PersonGenerator(int height, int width,int numberOfPerson) {
         this.height = height;
         this.width = width;
         this.numberOfPerson=numberOfPerson;
     }
+
     public void createArrayPositionDepart(){
         ArrayList<Position> departure=new ArrayList<>();
         ArrayList<Position> arrival=new ArrayList<>();
