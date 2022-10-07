@@ -30,7 +30,7 @@ public class Person{
      * @return true if he has made a choice, return false if he reached his goal
      */
     public boolean makeChoice() throws InterruptedException {
-        Thread.sleep(500);
+        Thread.sleep(100);
         comptReset++;
         if (comptReset<4) {
             return true;
