@@ -110,4 +110,8 @@ public class Person{
     public Position getPosition() {
         return position;
     }
+
+    public Position getGoal() {
+        return goal;
+    }
 }
