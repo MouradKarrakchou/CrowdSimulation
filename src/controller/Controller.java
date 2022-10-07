@@ -21,6 +21,7 @@ public class Controller {
         allPerson.add(new Person(new Position(7,2),new Position(1,0),grid,7));
         allPerson.add(new Person(new Position(9,9),new Position(0, 4),grid,8));
         allPerson.add(new Person(new Position(6,1),new Position(6,7),grid,9));
+
         gui=new GUI(grid);
         grid.setGui(gui);
         for (Person person:allPerson){
