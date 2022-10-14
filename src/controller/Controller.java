@@ -2,6 +2,7 @@ package controller;
 
 import ihm.GUI;
 import input.CSVManager;
+import input.PersonGenerator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +12,16 @@ public class Controller {
     Grid grid;
     List<Person> allPerson;
     GUI gui;
-    public static final int HEIGHT =130;
-    public static final int WIDTH =100;
-    public static final int NUMBER_OF_PERSON =1000;
+    public static final int HEIGHT = 120;
+    public static final int WIDTH = 100;
+    public static final int NUMBER_OF_PERSON = 100;
+    public static final int TIME_TO_SLEEP = 1;
+    public static final boolean GENERATE_PERSON = true;
 
     public Controller() throws IOException {
+        if (GENERATE_PERSON)
+            new PersonGenerator().createArrayPositionDepart();
+
         grid=new Grid(HEIGHT,WIDTH);
         this.allPerson = new CSVManager().getPersonList(grid);
         gui=new GUI(grid);
@@ -26,8 +32,6 @@ public class Controller {
     }
     public void startRound() throws InterruptedException {
         while (allPerson.size()>0) {
-            System.out.println("Nb persons alive : " + allPerson.size());
-            System.out.println(allPerson);
             ArrayList<Person> allPersonToRemove=new ArrayList<>();
             for (Person person:allPerson){
                 if(!person.makeChoice()) {
@@ -37,5 +41,9 @@ public class Controller {
             }
             allPerson.removeAll(allPersonToRemove);
         }
+    }
+
+    public void close() {
+        gui.close();
     }
 }

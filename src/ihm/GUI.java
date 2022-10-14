@@ -13,6 +13,7 @@ import java.util.Objects;
 public class GUI {
     private static final int border = 800;
     private final JPanel[][] myGridPanel;
+    private JFrame myFrame;
 
     public GUI(Grid grid) {
         /**
@@ -20,14 +21,14 @@ public class GUI {
          */
         myGridPanel = setupGridPanel(grid);
 
-        JFrame frame = setupFrame();
+        myFrame = setupFrame();
         JPanel panel = setupMainPanel(grid);
-        frame.setContentPane(panel);
+        myFrame.setContentPane(panel);
         for (JPanel[] jpanels:myGridPanel){
             for (JPanel jpanel:jpanels)
                 jpanel.setBackground(Color.gray);
         }
-        frame.setVisible(true);
+        myFrame.setVisible(true);
     }
 
     public void updatePersonPosition(Person person, Position previousPosition, Position nextPosition) {
@@ -98,6 +99,10 @@ public class GUI {
         frame.setLocationRelativeTo(null);
 
         return frame;
+    }
+
+    public void close() {
+        myFrame.dispose();
     }
 
 }

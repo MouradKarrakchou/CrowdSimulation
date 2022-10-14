@@ -40,6 +40,7 @@ public class Person{
      * @return true if he has made a choice, return false if he reached his goal
      */
     public boolean makeChoice() throws InterruptedException {
+        Thread.sleep(Controller.TIME_TO_SLEEP);
 
         comptReset++;
         if (comptReset<4) {
