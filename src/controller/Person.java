@@ -43,10 +43,10 @@ public class Person{
         Thread.sleep(Controller.TIME_TO_SLEEP);
 
         comptReset++;
-        if (comptReset<4) {
+        if (comptReset<3) {
             return true;
         }
-        else if (comptReset==4){
+        else if (comptReset==3){
             grid.putPerson(this);
         }
 
