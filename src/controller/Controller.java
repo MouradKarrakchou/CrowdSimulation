@@ -31,6 +31,11 @@ public class Controller {
             grid.putPerson(person);
         }
     }
+
+    /**
+     * start the simulation and finish when evrybody is out of the grid
+     * @throws InterruptedException
+     */
     public void execute() throws InterruptedException {
         while (personInTransit.size()>0) {
             ArrayList<Person> allPersonToRemove=new ArrayList<>();

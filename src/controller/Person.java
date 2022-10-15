@@ -10,6 +10,7 @@ public class Person{
     Position goal;
     Color color;
     Grid grid;
+    // comptReset is used to check how much round since last destruction
     int comptReset=4;
     int id;
 
@@ -36,7 +37,7 @@ public class Person{
     }
 
     /**
-     *
+     * check comptReset to know if the Person is still destroyed or not after that make move the Person.
      * @return true if he has made a choice, return false if he reached his goal
      */
     public boolean makeChoice() throws InterruptedException {
@@ -56,9 +57,9 @@ public class Person{
             return false;
         }
         return true;
-
-
     }
+
+
     public boolean makeMooveLine() {
         Person neighboor;
         if (position.x< goal.x){
@@ -78,6 +79,26 @@ public class Person{
         else return false;
     }
 
+
+    public boolean makeMoveColon() {
+        Person neighboor;
+        if (position.y< goal.y){
+            neighboor=grid.tab[position.y+1][position.x];
+            if (clearTheWay(neighboor)){
+                grid.moveInGrid(position,new Position(position.x, position.y+1),this);
+                position.y++;}
+            return true;
+        }
+        else if (position.y> goal.y){
+            neighboor=grid.tab[position.y-1][position.x];
+            if (clearTheWay(neighboor)){
+                grid.moveInGrid(position,new Position(position.x, position.y-1),this);
+                position.y--;}
+            return true;
+        }
+        else return false;
+    }
+
     /**
      * remove himself from the grid and will restart at his initial position in 3 rounds
      */
@@ -87,6 +108,12 @@ public class Person{
         comptReset=0;
         System.out.println("DESTROYED " + id);
     }
+
+    /**
+     * decide who is going to be destroyed
+     * @param neighboor
+     * @return
+     */
     public boolean clearTheWay(Person neighboor){
         if (neighboor==null)
             return true;
@@ -98,24 +125,6 @@ public class Person{
         else
         {this.destroy();
             return false;}
-    }
-    public boolean makeMoveColon() {
-        Person neighboor;
-        if (position.y< goal.y){
-            neighboor=grid.tab[position.y+1][position.x];
-            if (clearTheWay(neighboor)){
-            grid.moveInGrid(position,new Position(position.x, position.y+1),this);
-            position.y++;}
-            return true;
-        }
-        else if (position.y> goal.y){
-            neighboor=grid.tab[position.y-1][position.x];
-            if (clearTheWay(neighboor)){
-            grid.moveInGrid(position,new Position(position.x, position.y-1),this);
-            position.y--;}
-            return true;
-        }
-        else return false;
     }
 
     public Color getColor() {
