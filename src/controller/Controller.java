@@ -13,9 +13,9 @@ public class Controller {
     // persons that didn't finish yet
     List<Person> personInTransit;
     GUI gui;
-    public static final int HEIGHT = 120;
+    public static final int HEIGHT = 100;
     public static final int WIDTH = 100;
-    public static final int NUMBER_OF_PERSON = 1000;
+    public static final int NUMBER_OF_PERSON = 10000;
     public static final int TIME_TO_SLEEP = 0;
     public static final boolean GENERATE_PERSON = true;
 

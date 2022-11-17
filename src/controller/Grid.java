@@ -49,11 +49,7 @@ public class Grid {
         Person neighboor=tab[person.position.y][person.position.x];
         if (neighboor!=null)
         {
-            if (neighboor.id<person.id)
-            {neighboor.destroy();
-                tab[person.position.y][person.position.x]=person;
-                gui.putPerson(person);}
-            else person.destroy();
+            person.destroy();
         }
         else
         {

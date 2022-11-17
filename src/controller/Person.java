@@ -119,8 +119,7 @@ public class Person{
             return true;
         else if (neighboor.id<this.id)
         {
-            neighboor.destroy();
-            return true;
+            return false;
         }
         else
         {this.destroy();
