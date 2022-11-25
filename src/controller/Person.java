@@ -74,45 +74,23 @@ public class Person{
             position.x += move;
         }
         return true;
-
-
-        /*
-        if (position.x< goal.x){
-            neighboor=grid.tab[position.y][position.x+1];
-            if (clearTheWay(neighboor)){
-            grid.moveInGrid(position,new Position(position.x+1, position.y),this);
-            position.x++;}
-            return true;
-        }
-        else if (position.x> goal.x){
-            neighboor=grid.tab[position.y][position.x-1];
-            if (clearTheWay(neighboor)){
-            grid.moveInGrid(position,new Position(position.x-1, position.y),this);
-            position.x--;}
-            return true;
-        }
-        else return false;
-         */
     }
 
 
     public boolean makeMoveColon() {
-        Person neighboor;
-        if (position.y< goal.y){
-            neighboor=grid.tab[position.y+1][position.x];
-            if (clearTheWay(neighboor)){
-                grid.moveInGrid(position,new Position(position.x, position.y+1),this);
-                position.y++;}
-            return true;
+        if (position.y == goal.y)
+            return false;
+
+        int move = 1;
+        if (position.y > goal.y)
+            move = -1;
+
+        Person neighboor = grid.tab[position.y + move][position.x];
+        if (clearTheWay(neighboor)){
+            grid.moveInGrid(position,new Position(position.x, position.y + move),this);
+            position.y += move;
         }
-        else if (position.y> goal.y){
-            neighboor=grid.tab[position.y-1][position.x];
-            if (clearTheWay(neighboor)){
-                grid.moveInGrid(position,new Position(position.x, position.y-1),this);
-                position.y--;}
-            return true;
-        }
-        else return false;
+        return true;
     }
 
     /**
