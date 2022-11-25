@@ -3,7 +3,7 @@ package controller;
 import java.awt.*;
 import java.util.Random;
 
-public class Person{
+public class Person implements Runnable {
     final Person [][] tab;
     Position startPosition;
     Position position;
@@ -12,6 +12,7 @@ public class Person{
     Grid grid;
     // comptReset is used to check how much round since last destruction
     int comptReset=4;
+    boolean reset = false;
     int id;
 
     public Person(Position position,Position goal,Grid grid,int id ){
@@ -36,6 +37,17 @@ public class Person{
         this.color = color;
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                if (!makeChoice()) break;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * check comptReset to know if the Person is still destroyed or not after that make move the Person.
      * @return true if he has made a choice, return false if he reached his goal
@@ -43,12 +55,19 @@ public class Person{
     public boolean makeChoice() throws InterruptedException {
         Thread.sleep(Controller.TIME_TO_SLEEP);
 
+        /*
         comptReset++;
         if (comptReset<3) {
             return true;
         }
         else if (comptReset==3){
             grid.putPerson(this);
+        }
+         */
+
+        if (reset) {
+            grid.putPerson(this);
+            reset = false;
         }
 
 
@@ -60,7 +79,7 @@ public class Person{
     }
 
 
-    public boolean makeMooveLine() {
+    public boolean makeMooveLine() throws InterruptedException {
         if (position.x == goal.x)
             return false;
 
@@ -68,16 +87,20 @@ public class Person{
         if (position.x > goal.x)
             move = -1;
 
+        grid.locks[position.y][position.x+move].lock();
+
         Person neighboor = grid.tab[position.y][position.x+move];
         if (clearTheWay(neighboor)){
             grid.moveInGrid(position,new Position(position.x+move, position.y),this);
             position.x += move;
         }
+
+        grid.locks[position.y][position.x+move].unlock();
         return true;
     }
 
 
-    public boolean makeMoveColon() {
+    public boolean makeMoveColon() throws InterruptedException {
         if (position.y == goal.y)
             return false;
 
@@ -85,22 +108,28 @@ public class Person{
         if (position.y > goal.y)
             move = -1;
 
+        grid.locks[position.y + move][position.x].lock();
+
         Person neighboor = grid.tab[position.y + move][position.x];
         if (clearTheWay(neighboor)){
             grid.moveInGrid(position,new Position(position.x, position.y + move),this);
             position.y += move;
         }
+
+        grid.locks[position.y + move][position.x].unlock();
         return true;
     }
 
     /**
      * remove himself from the grid and will restart at his initial position in 3 rounds
      */
-    void destroy() {
+    void destroy() throws InterruptedException {
         grid.deletePerson(position);
         position=new Position(startPosition.x,startPosition.y);
-        comptReset=0;
+        //comptReset=0;
+        reset = true;
         System.out.println("DESTROYED " + id);
+        Thread.sleep(10);
     }
 
     /**
@@ -108,7 +137,7 @@ public class Person{
      * @param neighboor
      * @return
      */
-    public boolean clearTheWay(Person neighboor){
+    public boolean clearTheWay(Person neighboor) throws InterruptedException {
         if (neighboor==null)
             return true;
         else if (neighboor.id<this.id)

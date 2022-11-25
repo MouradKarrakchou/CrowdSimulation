@@ -52,7 +52,7 @@ public class Grid {
         gui.finishGame(position);
     }
 
-    public void putPerson(Person person) {
+    public void putPerson(Person person) throws InterruptedException {
         Person neighboor=tab[person.position.y][person.position.x];
         if (neighboor!=null)
         {

@@ -15,11 +15,11 @@ public class Controller {
     GUI gui;
     public static final int HEIGHT = 100;
     public static final int WIDTH = 100;
-    public static final int NUMBER_OF_PERSON = 10000;
+    public static final int NUMBER_OF_PERSON = 1000;
     public static final int TIME_TO_SLEEP = 0;
     public static final boolean GENERATE_PERSON = true;
 
-    public Controller() throws IOException {
+    public Controller() throws IOException, InterruptedException {
         if (GENERATE_PERSON)
             new PersonGenerator().createArrayPositionDepart();
 
@@ -37,6 +37,10 @@ public class Controller {
      * @throws InterruptedException
      */
     public void execute() throws InterruptedException {
+        for (Person person: personInTransit){
+            person.run();
+        }
+        /*
         while (personInTransit.size()>0) {
             ArrayList<Person> allPersonToRemove=new ArrayList<>();
             for (Person person: personInTransit){
@@ -47,6 +51,7 @@ public class Controller {
             }
             personInTransit.removeAll(allPersonToRemove);
         }
+         */
     }
 
     public void close() {
