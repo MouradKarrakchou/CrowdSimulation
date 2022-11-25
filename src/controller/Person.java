@@ -61,7 +61,22 @@ public class Person{
 
 
     public boolean makeMooveLine() {
-        Person neighboor;
+        if (position.x == goal.x)
+            return false;
+
+        int move = 1;
+        if (position.x > goal.x)
+            move = -1;
+
+        Person neighboor = grid.tab[position.y][position.x+move];
+        if (clearTheWay(neighboor)){
+            grid.moveInGrid(position,new Position(position.x+move, position.y),this);
+            position.x += move;
+        }
+        return true;
+
+
+        /*
         if (position.x< goal.x){
             neighboor=grid.tab[position.y][position.x+1];
             if (clearTheWay(neighboor)){
@@ -77,6 +92,7 @@ public class Person{
             return true;
         }
         else return false;
+         */
     }
 
 

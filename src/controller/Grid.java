@@ -2,8 +2,13 @@ package controller;
 
 import ihm.GUI;
 
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Grid {
     final Person [][] tab;
+    final ReentrantLock[][] locks;
     int height;
     int width;
     GUI gui;
@@ -13,7 +18,9 @@ public class Grid {
         this.height = height;
         this.width = width;
         this.tab = new Person[height][width];
+        this.locks = new ReentrantLock[height][width];
     }
+
     public void moveInGrid(Position start, Position arrival, Person person){
         tab[start.y][start.x]=null;
         tab[arrival.y][arrival.x]=person;
