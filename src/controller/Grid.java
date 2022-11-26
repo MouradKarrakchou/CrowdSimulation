@@ -19,6 +19,13 @@ public class Grid {
         this.width = width;
         this.tab = new Person[height][width];
         this.locks = new ReentrantLock[height][width];
+
+        // init the lock array
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                locks[i][j] = new ReentrantLock();
+            }
+        }
     }
 
     public void moveInGrid(Position start, Position arrival, Person person){

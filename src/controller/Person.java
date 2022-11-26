@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Person implements Runnable {
     final Person [][] tab;
@@ -87,15 +88,16 @@ public class Person implements Runnable {
         if (position.x > goal.x)
             move = -1;
 
-        grid.locks[position.y][position.x+move].lock();
+        ReentrantLock lock = grid.locks[position.y][position.x + move];
+        lock.lock();
 
-        Person neighboor = grid.tab[position.y][position.x+move];
+        Person neighboor = grid.tab[position.y][position.x + move];
         if (clearTheWay(neighboor)){
-            grid.moveInGrid(position,new Position(position.x+move, position.y),this);
+            grid.moveInGrid(position,new Position(position.x + move, position.y),this);
             position.x += move;
         }
 
-        grid.locks[position.y][position.x+move].unlock();
+        lock.unlock();
         return true;
     }
 
@@ -108,7 +110,8 @@ public class Person implements Runnable {
         if (position.y > goal.y)
             move = -1;
 
-        grid.locks[position.y + move][position.x].lock();
+        ReentrantLock lock = grid.locks[position.y + move][position.x];
+        lock.lock();
 
         Person neighboor = grid.tab[position.y + move][position.x];
         if (clearTheWay(neighboor)){
@@ -116,7 +119,7 @@ public class Person implements Runnable {
             position.y += move;
         }
 
-        grid.locks[position.y + move][position.x].unlock();
+        lock.unlock();
         return true;
     }
 

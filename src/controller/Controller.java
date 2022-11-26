@@ -17,7 +17,7 @@ public class Controller {
     public static final int WIDTH = 100;
     public static final int NUMBER_OF_PERSON = 1000;
     public static final int TIME_TO_SLEEP = 0;
-    public static final boolean GENERATE_PERSON = true;
+    public static final boolean GENERATE_PERSON = false;
 
     public Controller() throws IOException, InterruptedException {
         if (GENERATE_PERSON)
