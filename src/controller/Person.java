@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Person implements Runnable {
+public class Person extends Thread {
     final Person [][] tab;
     Position startPosition;
     Position position;
@@ -13,19 +13,19 @@ public class Person implements Runnable {
     Grid grid;
     // comptReset is used to check how much round since last destruction
     int comptReset=4;
-    boolean reset = false;
+    boolean reset = true;
     int id;
 
-    public Person(Position position,Position goal,Grid grid,int id ){
-        this.id=id;
-        this.startPosition=position;
-        this.position=new Position(position.x,position.y);
-        this.goal=goal;
-        this.tab=grid.tab;
-        this.grid=grid;
-        Random random = new Random();
-        this.color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
-    }
+//    public Person(Position position,Position goal,Grid grid,int id ){
+//        this.id=id;
+//        this.startPosition=position;
+//        this.position=new Position(position.x,position.y);
+//        this.goal=goal;
+//        this.tab=grid.tab;
+//        this.grid=grid;
+//        Random random = new Random();
+//        this.color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
+//    }
 
     public Person(Position position,Position goal,Grid grid,int id, Color color){
         this.id=id;
@@ -71,11 +71,22 @@ public class Person implements Runnable {
             reset = false;
         }
 
-
-        if (comptReset!=0 && !makeMooveLine()) if(!makeMoveColon()) {
-            grid.finishGame(position);
-            return false;
+        // we choose randomly if we prioritize move in line or in column
+        if (new Random().nextBoolean())
+        {
+            if (!makeMoveColon())
+                if(!makeMooveLine()) {
+                    grid.finishGame(position);
+                    return false;
+                }
+        } else {
+            if (!makeMooveLine())
+                if(!makeMoveColon()) {
+                    grid.finishGame(position);
+                    return false;
+                }
         }
+
         return true;
     }
 

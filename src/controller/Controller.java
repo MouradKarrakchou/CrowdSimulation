@@ -17,7 +17,7 @@ public class Controller {
     public static final int WIDTH = 100;
     public static final int NUMBER_OF_PERSON = 1000;
     public static final int TIME_TO_SLEEP = 0;
-    public static final boolean GENERATE_PERSON = false;
+    public static final boolean GENERATE_PERSON = true;
 
     public Controller() throws IOException, InterruptedException {
         if (GENERATE_PERSON)
@@ -27,9 +27,9 @@ public class Controller {
         this.personInTransit = new CSVManager().getPersonList(grid);
         gui=new GUI(grid);
         grid.setGui(gui);
-        for (Person person: personInTransit){
-            grid.putPerson(person);
-        }
+//        for (Person person: personInTransit){
+//            grid.putPerson(person);
+//        }
     }
 
     /**
@@ -38,8 +38,14 @@ public class Controller {
      */
     public void execute() throws InterruptedException {
         for (Person person: personInTransit){
-            person.run();
+            person.start();
         }
+
+        // wait for all persons to finish
+        for (Person person: personInTransit){
+            person.join();
+        }
+        System.out.println("FINISH !");
         /*
         while (personInTransit.size()>0) {
             ArrayList<Person> allPersonToRemove=new ArrayList<>();

@@ -2,8 +2,7 @@ package controller;
 
 import ihm.GUI;
 
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
+
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Grid {
@@ -60,6 +59,7 @@ public class Grid {
     }
 
     public void putPerson(Person person) throws InterruptedException {
+        locks[person.position.y][person.position.x].lock();
         Person neighboor=tab[person.position.y][person.position.x];
         if (neighboor!=null)
         {
@@ -70,5 +70,6 @@ public class Grid {
             tab[person.position.y][person.position.x]=person;
             gui.putPerson(person);
         }
+        locks[person.position.y][person.position.x].unlock();
     }
 }
