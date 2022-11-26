@@ -121,7 +121,9 @@ public class Person extends Thread {
         position=new Position(startPosition.x,startPosition.y);
         //comptReset=0;
         reset = true;
-//        System.out.println("DESTROYED " + id);
+
+        if (Controller.VERBOSE)
+            System.out.println("DESTROYED " + id);
         //Thread.sleep(1);
     }
 
