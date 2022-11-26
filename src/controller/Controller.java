@@ -15,9 +15,10 @@ public class Controller {
     GUI gui;
     public static final int HEIGHT = 100;
     public static final int WIDTH = 100;
-    public static final int NUMBER_OF_PERSON = 1000;
-    public static final int TIME_TO_SLEEP = 0;
+    public static final int NUMBER_OF_PERSON = 10000;
+    public static final int TIME_TO_SLEEP = 1;
     public static final boolean GENERATE_PERSON = true;
+    public static final boolean DISPLAY = false;
 
     public Controller() throws IOException, InterruptedException {
         if (GENERATE_PERSON)
@@ -25,11 +26,15 @@ public class Controller {
 
         grid=new Grid(HEIGHT,WIDTH);
         this.personInTransit = new CSVManager().getPersonList(grid);
-        gui=new GUI(grid);
-        grid.setGui(gui);
-//        for (Person person: personInTransit){
-//            grid.putPerson(person);
-//        }
+
+        if (DISPLAY) {
+            gui=new GUI(grid);
+            grid.setGui(gui);
+        }
+
+        for (Person person: personInTransit){
+            grid.putPerson(person);
+        }
     }
 
     /**
@@ -37,6 +42,8 @@ public class Controller {
      * @throws InterruptedException
      */
     public void execute() throws InterruptedException {
+        long startTime = System.nanoTime(); // start timer
+
         for (Person person: personInTransit){
             person.start();
         }
@@ -45,22 +52,16 @@ public class Controller {
         for (Person person: personInTransit){
             person.join();
         }
+
+        long stopTime = System.nanoTime(); // end timer
         System.out.println("FINISH !");
-        /*
-        while (personInTransit.size()>0) {
-            ArrayList<Person> allPersonToRemove=new ArrayList<>();
-            for (Person person: personInTransit){
-                if(!person.makeChoice()) {
-                    allPersonToRemove.add(person);
-                    System.out.println("Finished:"+person);
-                }
-            }
-            personInTransit.removeAll(allPersonToRemove);
-        }
-         */
+
+        long timeInMs = (stopTime - startTime) / 1000000;
+        System.out.println("DURATION : " + timeInMs + " ms");
     }
 
     public void close() {
-        gui.close();
+        if (Controller.DISPLAY)
+            gui.close();
     }
 }

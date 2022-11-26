@@ -6,8 +6,6 @@ import controller.Position;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class GUI {

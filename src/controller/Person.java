@@ -11,21 +11,8 @@ public class Person extends Thread {
     Position goal;
     Color color;
     Grid grid;
-    // comptReset is used to check how much round since last destruction
-    int comptReset=4;
-    boolean reset = true;
+    boolean reset = false;
     int id;
-
-//    public Person(Position position,Position goal,Grid grid,int id ){
-//        this.id=id;
-//        this.startPosition=position;
-//        this.position=new Position(position.x,position.y);
-//        this.goal=goal;
-//        this.tab=grid.tab;
-//        this.grid=grid;
-//        Random random = new Random();
-//        this.color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
-//    }
 
     public Person(Position position,Position goal,Grid grid,int id, Color color){
         this.id=id;
@@ -34,7 +21,6 @@ public class Person extends Thread {
         this.goal=goal;
         this.tab=grid.tab;
         this.grid=grid;
-        Random random = new Random();
         this.color = color;
     }
 
@@ -54,18 +40,6 @@ public class Person extends Thread {
      * @return true if he has made a choice, return false if he reached his goal
      */
     public boolean makeChoice() throws InterruptedException {
-        Thread.sleep(Controller.TIME_TO_SLEEP);
-
-        /*
-        comptReset++;
-        if (comptReset<3) {
-            return true;
-        }
-        else if (comptReset==3){
-            grid.putPerson(this);
-        }
-         */
-
         if (reset) {
             grid.putPerson(this);
             reset = false;
@@ -103,12 +77,15 @@ public class Person extends Thread {
         lock.lock();
 
         Person neighboor = grid.tab[position.y][position.x + move];
-        if (clearTheWay(neighboor)){
+        boolean clear = clearTheWay(neighboor);
+        if (clear){
             grid.moveInGrid(position,new Position(position.x + move, position.y),this);
             position.x += move;
         }
 
         lock.unlock();
+
+        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
         return true;
     }
 
@@ -125,12 +102,14 @@ public class Person extends Thread {
         lock.lock();
 
         Person neighboor = grid.tab[position.y + move][position.x];
-        if (clearTheWay(neighboor)){
+        boolean clear = clearTheWay(neighboor);
+        if (clear){
             grid.moveInGrid(position,new Position(position.x, position.y + move),this);
             position.y += move;
         }
 
         lock.unlock();
+        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
         return true;
     }
 
@@ -142,8 +121,8 @@ public class Person extends Thread {
         position=new Position(startPosition.x,startPosition.y);
         //comptReset=0;
         reset = true;
-        System.out.println("DESTROYED " + id);
-        Thread.sleep(10);
+//        System.out.println("DESTROYED " + id);
+        //Thread.sleep(1);
     }
 
     /**
