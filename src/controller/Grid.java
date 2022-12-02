@@ -24,7 +24,7 @@ public class Grid {
         // init the lock array
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                boxes[i][j] = new Box(new Position(i, j));
+                boxes[i][j] = new Box(new Position(j, i));
             }
         }
     }
