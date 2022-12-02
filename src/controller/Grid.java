@@ -58,7 +58,6 @@ public class Grid {
 
     public void deletePerson(Position position) {
         boxes[position.y][position.x].left();
-//        tab[position.y][position.x]=null;
         if (Controller.DISPLAY)
             gui.deletePersonByPosition(position);
     }
@@ -70,33 +69,14 @@ public class Grid {
     }
     public void initPerson(Person person) throws InterruptedException {
         boolean hasMoved = boxes[person.position.y][person.position.x].init(person);
-        if (!hasMoved)
-        {
-            person.destroy();
-        }
-        else
-        {
-            if (Controller.DISPLAY)
+        if(hasMoved && Controller.DISPLAY)
                 gui.putPerson(person);
-        }
     }
 
     public void putPerson(Person person) throws InterruptedException {
-        boolean haveMoved = boxes[person.position.y][person.position.x].spawn(person);
-//        locks[person.position.y][person.position.x].lock();
-//        Person neighboor=tab[person.position.y][person.position.x];
-        if (!haveMoved)
-        {
-            person.destroy();
-//            Thread.sleep(1);
-        }
-        else
-        {
-//            tab[person.position.y][person.position.x]=person;
-            if (Controller.DISPLAY)
-                gui.putPerson(person);
-        }
-//        locks[person.position.y][person.position.x].unlock();
+        boolean hasMoved = boxes[person.position.y][person.position.x].spawn(person);
+        if (Controller.DISPLAY&&hasMoved)
+            gui.putPerson(person);
     }
 
     public Box[][] getBoxes() {

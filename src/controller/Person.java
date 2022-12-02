@@ -79,21 +79,6 @@ public class Person extends Thread {
             destroy();
 
         return true;
-
-//        ReentrantLock lock = grid.locks[position.y][position.x + move];
-//        lock.lock();
-//
-//        Person neighboor = grid.tab[position.y][position.x + move];
-//        boolean clear = clearTheWay(neighboor);
-//        if (clear){
-//            grid.moveInGrid(position,new Position(position.x + move, position.y),this);
-//            position.x += move;
-//        }
-//
-//        lock.unlock();
-//
-//        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
-//        return true;
     }
 
 
@@ -112,19 +97,6 @@ public class Person extends Thread {
 
         return true;
 
-//        ReentrantLock lock = grid.locks[position.y + move][position.x];
-//        lock.lock();
-//
-//        Person neighboor = grid.tab[position.y + move][position.x];
-//        boolean clear = clearTheWay(neighboor);
-//        if (clear){
-//            grid.moveInGrid(position,new Position(position.x, position.y + move),this);
-//            position.y += move;
-//        }
-//
-//        lock.unlock();
-//        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
-//        return true;
     }
 
     /**
