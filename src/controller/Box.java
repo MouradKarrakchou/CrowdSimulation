@@ -20,7 +20,10 @@ public class Box {
         return person.id;
     }
     public synchronized boolean init(Person person) throws InterruptedException {
-        if (isOccupied() != -1)   return false;
+        if (isOccupied() != -1)   {
+            person.reset=true;
+            return false;
+        }
         this.person = person;
         return true;
     }
@@ -28,6 +31,7 @@ public class Box {
     public synchronized boolean spawn(Person person) throws InterruptedException {
         while (isOccupied() != -1){
             if (isOccupied() > person.id) {
+                person.reset=true;
                 return false;
             }
             wait();
