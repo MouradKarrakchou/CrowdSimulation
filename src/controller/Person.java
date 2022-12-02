@@ -143,23 +143,6 @@ public class Person extends Thread {
         //Thread.sleep(1);
     }
 
-    /**
-     * decide who is going to be destroyed
-     * @param neighboor
-     * @return
-     */
-    public boolean clearTheWay(Person neighboor) throws InterruptedException {
-        if (neighboor==null)
-            return true;
-        else if (neighboor.id<this.id)
-        {
-            return false;
-        }
-        else
-        {this.destroy();
-            return false;}
-    }
-
     public Color getColor() {
         return color;
     }
