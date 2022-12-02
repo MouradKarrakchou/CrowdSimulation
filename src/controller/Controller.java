@@ -15,8 +15,8 @@ public class Controller {
     GUI gui;
     public static final int HEIGHT = 10;
     public static final int WIDTH = 10;
-    public static final int NUMBER_OF_PERSON = 10;
-    public static final int TIME_TO_SLEEP = 1;
+    public static final int NUMBER_OF_PERSON = 1000;
+    public static final int TIME_TO_SLEEP = 10;
     public static final boolean GENERATE_PERSON = true;
     public static final boolean DISPLAY = true;
     public static final boolean VERBOSE = true;

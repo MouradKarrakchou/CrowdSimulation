@@ -30,10 +30,6 @@ public class Box {
 
     public synchronized boolean spawn(Person person) throws InterruptedException {
         while (isOccupied() != -1){
-            if (isOccupied() > person.id) {
-                person.reset=true;
-                return false;
-            }
             wait();
         }
 
