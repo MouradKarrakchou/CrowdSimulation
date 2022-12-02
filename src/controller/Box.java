@@ -22,7 +22,6 @@ public class Box {
     public synchronized boolean init(Person person) throws InterruptedException {
         if (isOccupied() != -1)   return false;
         this.person = person;
-        this.person.position = this.position;
         return true;
     }
 
@@ -35,7 +34,6 @@ public class Box {
         }
 
         this.person = person;
-        this.person.position = this.position;
         return true;
     }
 
