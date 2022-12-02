@@ -19,7 +19,7 @@ public class Box {
         return person.id;
     }
     public synchronized boolean init(Person person) throws InterruptedException {
-        if (isOccupied() > person.id)   return false;
+        if (isOccupied() != -1)   return false;
         this.person = person;
         return true;
     }
