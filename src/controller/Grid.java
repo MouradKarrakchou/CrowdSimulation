@@ -6,8 +6,9 @@ import ihm.GUI;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Grid {
-    final Person [][] tab;
-    final ReentrantLock[][] locks;
+//    final Person [][] tab;
+//    final ReentrantLock[][] locks;
+    final Box[][] boxes;
     int height;
     int width;
     GUI gui;
@@ -16,22 +17,27 @@ public class Grid {
     public Grid(int height,int width){
         this.height = height;
         this.width = width;
-        this.tab = new Person[height][width];
-        this.locks = new ReentrantLock[height][width];
+//        this.tab = new Person[height][width];
+//        this.locks = new ReentrantLock[height][width];
+        boxes = new Box[height][width];
 
         // init the lock array
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                locks[i][j] = new ReentrantLock();
+                boxes[i][j] = new Box(new Position(i, j));
             }
         }
     }
 
-    public void moveInGrid(Position start, Position arrival, Person person){
-        tab[start.y][start.x]=null;
-        tab[arrival.y][arrival.x]=person;
-        if (Controller.DISPLAY)
-            gui.updatePersonPosition(person,start,arrival);
+    public boolean moveInGrid(Box start, Box arrival, Person person) throws InterruptedException {
+        boolean hasMoved = arrival.move(start);
+
+//        tab[start.y][start.x]=null;
+//        tab[arrival.y][arrival.x]=person;
+        if (Controller.DISPLAY && hasMoved)
+            gui.updatePersonPosition(person, start.position, arrival.position);
+
+        return hasMoved;
     }
 
     public int getHeight() {
@@ -46,36 +52,42 @@ public class Grid {
         this.gui = gui;
     }
 
-    public Person[][] getTab() {
-        return tab;
-    }
+//    public Person[][] getTab() {
+//        return tab;
+//    }
 
     public void deletePerson(Position position) {
-        tab[position.y][position.x]=null;
+        boxes[position.y][position.x].left();
+//        tab[position.y][position.x]=null;
         if (Controller.DISPLAY)
             gui.deletePersonByPosition(position);
     }
     public void finishGame(Position position) {
-        tab[position.y][position.x]=null;
+        boxes[position.y][position.x].left();
 //        System.out.println("FINISH");
         if (Controller.DISPLAY)
             gui.finishGame(position);
     }
 
     public void putPerson(Person person) throws InterruptedException {
-        locks[person.position.y][person.position.x].lock();
-        Person neighboor=tab[person.position.y][person.position.x];
-        if (neighboor!=null)
+        boolean haveMoved = boxes[person.position.y][person.position.x].spawn(person);
+//        locks[person.position.y][person.position.x].lock();
+//        Person neighboor=tab[person.position.y][person.position.x];
+        if (!haveMoved)
         {
             person.destroy();
-            Thread.sleep(1);
+//            Thread.sleep(1);
         }
         else
         {
-            tab[person.position.y][person.position.x]=person;
+//            tab[person.position.y][person.position.x]=person;
             if (Controller.DISPLAY)
                 gui.putPerson(person);
         }
-        locks[person.position.y][person.position.x].unlock();
+//        locks[person.position.y][person.position.x].unlock();
+    }
+
+    public Box[][] getBoxes() {
+        return boxes;
     }
 }

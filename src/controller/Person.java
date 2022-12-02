@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Person extends Thread {
-    final Person [][] tab;
+//    final Person [][] tab;
     Position startPosition;
     Position position;
     Position goal;
@@ -19,7 +19,7 @@ public class Person extends Thread {
         this.startPosition=position;
         this.position=new Position(position.x,position.y);
         this.goal=goal;
-        this.tab=grid.tab;
+//        this.tab=grid.tab;
         this.grid=grid;
         this.color = color;
     }
@@ -73,20 +73,27 @@ public class Person extends Thread {
         if (position.x > goal.x)
             move = -1;
 
-        ReentrantLock lock = grid.locks[position.y][position.x + move];
-        lock.lock();
+        Box start = grid.boxes[position.y][position.x];
+        Box end = grid.boxes[position.y][position.x + move];
+        if (!grid.moveInGrid(start, end, this))
+            destroy();
 
-        Person neighboor = grid.tab[position.y][position.x + move];
-        boolean clear = clearTheWay(neighboor);
-        if (clear){
-            grid.moveInGrid(position,new Position(position.x + move, position.y),this);
-            position.x += move;
-        }
-
-        lock.unlock();
-
-        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
         return true;
+
+//        ReentrantLock lock = grid.locks[position.y][position.x + move];
+//        lock.lock();
+//
+//        Person neighboor = grid.tab[position.y][position.x + move];
+//        boolean clear = clearTheWay(neighboor);
+//        if (clear){
+//            grid.moveInGrid(position,new Position(position.x + move, position.y),this);
+//            position.x += move;
+//        }
+//
+//        lock.unlock();
+//
+//        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
+//        return true;
     }
 
 
@@ -98,19 +105,26 @@ public class Person extends Thread {
         if (position.y > goal.y)
             move = -1;
 
-        ReentrantLock lock = grid.locks[position.y + move][position.x];
-        lock.lock();
+        Box start = grid.boxes[position.y][position.x];
+        Box end = grid.boxes[position.y + move][position.x];
+        if (!grid.moveInGrid(start, end, this))
+            destroy();
 
-        Person neighboor = grid.tab[position.y + move][position.x];
-        boolean clear = clearTheWay(neighboor);
-        if (clear){
-            grid.moveInGrid(position,new Position(position.x, position.y + move),this);
-            position.y += move;
-        }
-
-        lock.unlock();
-        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
         return true;
+
+//        ReentrantLock lock = grid.locks[position.y + move][position.x];
+//        lock.lock();
+//
+//        Person neighboor = grid.tab[position.y + move][position.x];
+//        boolean clear = clearTheWay(neighboor);
+//        if (clear){
+//            grid.moveInGrid(position,new Position(position.x, position.y + move),this);
+//            position.y += move;
+//        }
+//
+//        lock.unlock();
+//        if (!clear) Thread.sleep(Controller.TIME_TO_SLEEP);
+//        return true;
     }
 
     /**
@@ -119,6 +133,8 @@ public class Person extends Thread {
     void destroy() throws InterruptedException {
         grid.deletePerson(position);
         position=new Position(startPosition.x,startPosition.y);
+        Thread.sleep(1);
+
         //comptReset=0;
         reset = true;
 

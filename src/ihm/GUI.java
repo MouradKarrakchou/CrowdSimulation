@@ -67,7 +67,7 @@ public class GUI {
             for (int j = 0; j < grid.getWidth(); j++) {
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                Person currentPerson = grid.getTab()[i][j];
+                Person currentPerson = grid.getBoxes()[i][j].getPerson();
                 if (currentPerson != null) {
                     panel.setBackground(currentPerson.getColor());
                 }
