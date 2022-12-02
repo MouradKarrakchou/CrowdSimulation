@@ -68,6 +68,18 @@ public class Grid {
         if (Controller.DISPLAY)
             gui.finishGame(position);
     }
+    public void initPerson(Person person) throws InterruptedException {
+        boolean hasMoved = boxes[person.position.y][person.position.x].init(person);
+        if (!hasMoved)
+        {
+            person.destroy();
+        }
+        else
+        {
+            if (Controller.DISPLAY)
+                gui.putPerson(person);
+        }
+    }
 
     public void putPerson(Person person) throws InterruptedException {
         boolean haveMoved = boxes[person.position.y][person.position.x].spawn(person);

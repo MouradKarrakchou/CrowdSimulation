@@ -18,6 +18,11 @@ public class Box {
             return -1;
         return person.id;
     }
+    public synchronized boolean init(Person person) throws InterruptedException {
+        if (isOccupied() > person.id)   return false;
+        this.person = person;
+        return true;
+    }
 
     public synchronized boolean spawn(Person person) throws InterruptedException {
         while (isOccupied() != -1){
