@@ -107,12 +107,10 @@ public class Person extends Thread {
         position=new Position(startPosition.x,startPosition.y);
         Thread.sleep(1);
 
-        //comptReset=0;
         reset = true;
 
         if (Controller.VERBOSE)
             System.out.println("DESTROYED " + id);
-        //Thread.sleep(1);
     }
 
     public Color getColor() {

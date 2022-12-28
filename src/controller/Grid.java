@@ -6,8 +6,6 @@ import ihm.GUI;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Grid {
-//    final Person [][] tab;
-//    final ReentrantLock[][] locks;
     final Box[][] boxes;
     int height;
     int width;
@@ -17,8 +15,6 @@ public class Grid {
     public Grid(int height,int width){
         this.height = height;
         this.width = width;
-//        this.tab = new Person[height][width];
-//        this.locks = new ReentrantLock[height][width];
         boxes = new Box[height][width];
 
         // init the lock array
@@ -32,8 +28,6 @@ public class Grid {
     public boolean moveInGrid(Box start, Box arrival, Person person) throws InterruptedException {
         boolean hasMoved = arrival.move(start);
 
-//        tab[start.y][start.x]=null;
-//        tab[arrival.y][arrival.x]=person;
         if (Controller.DISPLAY && hasMoved)
             gui.updatePersonPosition(person, start.position, arrival.position);
 
@@ -52,10 +46,6 @@ public class Grid {
         this.gui = gui;
     }
 
-//    public Person[][] getTab() {
-//        return tab;
-//    }
-
     public void deletePerson(Position position) {
         boxes[position.y][position.x].left();
         if (Controller.DISPLAY)
@@ -63,7 +53,6 @@ public class Grid {
     }
     public void finishGame(Position position) {
         boxes[position.y][position.x].left();
-//        System.out.println("FINISH");
         if (Controller.DISPLAY)
             gui.finishGame(position);
     }
